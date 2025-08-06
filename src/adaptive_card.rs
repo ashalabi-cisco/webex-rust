@@ -102,14 +102,12 @@ impl AdaptiveCard {
 }
 
 impl From<&Self> for AdaptiveCard {
-    #[must_use]
     fn from(item: &Self) -> Self {
         item.clone()
     }
 }
 
 impl From<&mut Self> for AdaptiveCard {
-    #[must_use]
     fn from(item: &mut Self) -> Self {
         item.clone()
     }
@@ -476,14 +474,12 @@ pub enum CardElement {
 }
 
 impl From<&Self> for CardElement {
-    #[must_use]
     fn from(item: &Self) -> Self {
         item.clone()
     }
 }
 
 impl From<&mut Self> for CardElement {
-    #[must_use]
     fn from(item: &mut Self) -> Self {
         item.clone()
     }
@@ -859,14 +855,12 @@ pub struct Column {
 }
 
 impl From<&Self> for Column {
-    #[must_use]
     fn from(item: &Self) -> Self {
         item.clone()
     }
 }
 
 impl From<&mut Self> for Column {
-    #[must_use]
     fn from(item: &mut Self) -> Self {
         item.clone()
     }
