@@ -1028,10 +1028,15 @@ pub enum FontType {
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum Size {
+    #[serde(alias = "Default")]
     Default,
+    #[serde(alias = "Small")]
     Small,
+    #[serde(alias = "Medium")]
     Medium,
+    #[serde(alias = "Large")]
     Large,
+    #[serde(alias = "ExtraLarge")]
     ExtraLarge,
 }
 
@@ -1040,10 +1045,15 @@ pub enum Size {
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ImageSize {
+    #[serde(alias = "Auto")]
     Auto,
+    #[serde(alias = "Stretch")]
     Stretch,
+    #[serde(alias = "Small")]
     Small,
+    #[serde(alias = "Medium")]
     Medium,
+    #[serde(alias = "Large")]
     Large,
 }
 
