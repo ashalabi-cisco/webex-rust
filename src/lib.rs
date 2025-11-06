@@ -952,22 +952,27 @@ impl Webex {
         let my_user_id = self.get_user_id().await?;
         debug!("Current user ID: {my_user_id}");
 
-        // Get all memberships in this room
+        // Get memberships in this room - we can use personId filter to get just our membership
         let membership_params = types::MembershipListParams {
             room_id: Some(room_id.id()),
+            person_id: Some(&my_user_id),
             ..Default::default()
         };
 
+        debug!("Fetching membership for user {my_user_id} in room");
         let memberships = self
             .list_with_params::<types::Membership>(membership_params)
             .await?;
 
-        let membership = memberships
-            .into_iter()
-            .find(|m| m.person_id == my_user_id)
-            .ok_or_else(|| {
-                error::Error::UserError("User is not a member of this room".to_string())
-            })?;
+        debug!("Found {} matching memberships", memberships.len());
+
+        let membership = memberships.into_iter().next().ok_or_else(|| {
+            error!("Could not find membership for user '{my_user_id}' in room");
+            error!(
+                "This usually means you are not a member of this room, or membership data is stale"
+            );
+            error::Error::UserError("User is not a member of this room".to_string())
+        })?;
 
         debug!("Found membership with ID: {}", membership.id);
         let membership_id =
