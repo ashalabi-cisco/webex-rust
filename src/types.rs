@@ -178,30 +178,28 @@ pub struct Team {
 
 /// Webex Teams membership information
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Membership {
     /// A unique identifier for the membership.
     pub id: String,
     /// The room ID associated with this membership.
-    #[serde(default, rename = "roomId")]
     pub room_id: String,
     /// The person ID associated with this membership.
-    #[serde(default, rename = "personId")]
     pub person_id: String,
     /// The email address of the person.
-    #[serde(rename = "personEmail")]
     pub person_email: Option<String>,
     /// The display name of the person.
-    #[serde(rename = "personDisplayName")]
     pub person_display_name: Option<String>,
     /// The organization ID of the person.
-    #[serde(rename = "personOrgId")]
     pub person_org_id: Option<String>,
     /// Whether or not the participant is a moderator of the room.
-    #[serde(rename = "isModerator")]
     pub is_moderator: bool,
     /// Whether or not the participant is a monitor of the room.
-    #[serde(rename = "isMonitor")]
     pub is_monitor: bool,
+    /// Whether or not the direct type room is hidden in Webex clients.
+    pub is_room_hidden: Option<bool>,
+    /// The room type (direct for 1:1 or group for group room).
+    pub room_type: Option<RoomType>,
     /// The date and time when the membership was created.
     pub created: String,
 }
