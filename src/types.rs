@@ -105,6 +105,14 @@ pub struct Room {
     pub creator_id: String,
     /// The date and time the room was created.
     pub created: String,
+    /// Indicates when a space is in Announcement Mode where only moderators can post messages.
+    pub is_announcement_only: Option<bool>,
+    /// Compliance officers can set direct rooms read-only to disallow any new information exchanges while maintaining history.
+    pub is_read_only: Option<bool>,
+    /// The room is public and therefore discoverable within the org.
+    pub is_public: Option<bool>,
+    /// The description of the space.
+    pub description: Option<String>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, crate::types::Serialize)]
