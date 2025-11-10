@@ -29,13 +29,9 @@ async fn main() {
         .unwrap_or_else(|_| panic!("{DEST_EMAIL} not specified in environment"));
 
     let webex = webex::Webex::new(token.as_str()).await;
-    let text = format!("Hello, {to_email}");
 
-    let msg_to_send = webex::types::MessageOut {
-        to_person_email: Some(to_email),
-        text: Some(text),
-        ..Default::default()
-    };
+    let msg_to_send = webex::MessageOut::to_person_email(to_email.clone())
+        .text(format!("Hello, {to_email}"));
 
     webex.send_message(&msg_to_send).await.unwrap();
 }

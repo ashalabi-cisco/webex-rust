@@ -273,16 +273,9 @@ pub enum Destination {
 pub struct MessageOut {
     /// The parent message to reply to.
     pub parent_id: Option<String>,
-    /// The room ID of the message.
-    pub room_id: Option<String>,
-    /// The person ID of the recipient when sending a private 1:1 message.
-    pub to_person_id: Option<String>,
-    /// The email address of the recipient when sending a private 1:1 message.
-    pub to_person_email: Option<String>,
-    // TODO - should we use globalIDs? We should check this field before the message is sent
-    // rolls up room_id, to_person_id, and to_person_email all in one field :)
-    //#[serde(flatten)]
-    //pub deliver_to: Option<Destination>,
+    /// Where to send the message - either a room ID, person ID, or person email
+    #[serde(flatten)]
+    pub destination: Option<Destination>,
     /// The message, in plain text. If markdown is specified this parameter may be optionally used to provide alternate text for UI clients that do not support rich text. The maximum message length is 7439 bytes.
     pub text: Option<String>,
     /// The message, in Markdown format. The maximum message length is 7439 bytes.
