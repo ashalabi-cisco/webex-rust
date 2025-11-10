@@ -6,7 +6,7 @@ authors = [
   "Milan Stastny <milan@stastnej.ch>",
   "Abel Shields <abel@uucp.org.uk>",
 ]
-edition = "2021"
+edition = "2024"
 description = "Interface to Webex Teams REST and WebSocket APIs"
 keywords = ["webex", "spark"]
 categories = ["asynchronous"]
