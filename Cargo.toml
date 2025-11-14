@@ -37,7 +37,7 @@ version = "1.0.228"
 features = ["derive"]
 
 [dependencies.tokio]
-version = "1.39"
+version = "1.48"
 features = ["full"]
 
 [dependencies.tokio-tungstenite]
@@ -45,10 +45,10 @@ version = "0.28.0"
 features = ["connect", "native-tls"]
 
 [dependencies.uuid]
-version = "1.10"
+version = "1.18.1"
 features = ["v4"]
 
 [dev-dependencies]
-env_logger = "0.11.5"
-mockito = "1.5.0"
+env_logger = "0.11.8"
+mockito = "1.7.0"
 tokio-test = "0.4.4"
