@@ -25,7 +25,7 @@ url = "2.5"
 lazy_static = "1.5.0"
 serde_html_form = "0.2.8"
 serde_with = { version = "3.15.1", features = ["macros"] }
-thiserror = "1.0.63"
+thiserror = "2.0.17"
 reqwest = { version = "0.12.24", features = ["json"] }
 
 [dependencies.chrono]
