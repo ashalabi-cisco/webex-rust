@@ -26,14 +26,14 @@ lazy_static = "1.5.0"
 serde_html_form = "0.2.8"
 serde_with = { version = "3.15.1", features = ["macros"] }
 thiserror = "1.0.63"
-reqwest = { version = "0.12.5", features = ["json"] }
+reqwest = { version = "0.12.24", features = ["json"] }
 
 [dependencies.chrono]
 version = "0.4"
 features = ["serde"]
 
 [dependencies.serde]
-version = "1.0.207"
+version = "1.0.228"
 features = ["derive"]
 
 [dependencies.tokio]
