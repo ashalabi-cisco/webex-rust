@@ -49,18 +49,17 @@ use futures::{future::try_join_all, try_join};
 use futures_util::{SinkExt, StreamExt};
 use log::{debug, error, trace, warn};
 use reqwest::StatusCode;
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{Serialize, de::DeserializeOwned};
 use std::{
-    collections::{hash_map::DefaultHasher, HashMap},
+    collections::{HashMap, hash_map::DefaultHasher},
     hash::{self, Hasher},
     sync::{Arc, Mutex},
     time::Duration,
 };
 use tokio::net::TcpStream;
 use tokio_tungstenite::{
-    connect_async,
+    MaybeTlsStream, WebSocketStream, connect_async,
     tungstenite::{Error as TErr, Message as TMessage},
-    MaybeTlsStream, WebSocketStream,
 };
 
 /*
@@ -152,7 +151,7 @@ impl WebexEventStream {
                             return Err(Error::Tungstenite(
                                 Box::new(e),
                                 "Error getting next_result".into(),
-                            ))
+                            ));
                         }
                     },
                 },
@@ -203,7 +202,7 @@ impl WebexEventStream {
         let auth = types::Authorization::new(token);
         debug!("Authenticating to stream");
         match ws_stream
-            .send(TMessage::Text(serde_json::to_string(&auth).unwrap()))
+            .send(TMessage::Text(serde_json::to_string(&auth).unwrap().into()))
             .await
         {
             Ok(()) => {
