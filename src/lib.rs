@@ -618,7 +618,9 @@ impl Webex {
             Ok(device) => connect_device(self, device).await,
             Err(e) => match &e {
                 Error::StatusText(status, _) if *status == StatusCode::FORBIDDEN => {
-                    error!("Device creation failed with 403 - event stream REQUIRES spark:devices_write and spark:devices_read scopes in your Webex integration");
+                    error!(
+                        "Device creation failed with 403 - event stream REQUIRES spark:devices_write and spark:devices_read scopes in your Webex integration"
+                    );
                     Err(e)
                 }
                 _ => {
@@ -668,7 +670,9 @@ impl Webex {
                 if error_msg.contains("missing required scopes")
                     || error_msg.contains("missing required roles")
                 {
-                    debug!("Insufficient permissions to list organizations, falling back to default mercury URL");
+                    debug!(
+                        "Insufficient permissions to list organizations, falling back to default mercury URL"
+                    );
                     return Err(
                         "Can't get mercury URL with insufficient organization permissions".into(),
                     );
@@ -1098,7 +1102,10 @@ impl Webex {
 impl From<&AttachmentAction> for MessageOut {
     fn from(action: &AttachmentAction) -> Self {
         Self {
-            destination: action.room_id.as_ref().map(|id| Destination::RoomId(id.clone())),
+            destination: action
+                .room_id
+                .as_ref()
+                .map(|id| Destination::RoomId(id.clone())),
             ..Self::default()
         }
     }
@@ -1107,11 +1114,15 @@ impl From<&AttachmentAction> for MessageOut {
 impl From<&Message> for MessageOut {
     fn from(msg: &Message) -> Self {
         let destination = if msg.room_type == Some(RoomType::Group) {
-            msg.room_id.as_ref().map(|id| Destination::RoomId(id.clone()))
+            msg.room_id
+                .as_ref()
+                .map(|id| Destination::RoomId(id.clone()))
         } else if let Some(person_id) = &msg.person_id {
             Some(Destination::ToPersonId(person_id.clone()))
         } else {
-            msg.person_email.as_ref().map(|email| Destination::ToPersonEmail(email.clone()))
+            msg.person_email
+                .as_ref()
+                .map(|email| Destination::ToPersonEmail(email.clone()))
         };
 
         Self {
@@ -1128,7 +1139,10 @@ impl Message {
     #[must_use]
     pub fn reply(&self) -> MessageOut {
         MessageOut {
-            destination: self.room_id.as_ref().map(|id| Destination::RoomId(id.clone())),
+            destination: self
+                .room_id
+                .as_ref()
+                .map(|id| Destination::RoomId(id.clone())),
             parent_id: self
                 .parent_id
                 .as_deref()
@@ -1568,9 +1582,11 @@ mod tests {
 
         assert!(result.is_err());
         if let Err(error) = result {
-            assert!(error
-                .to_string()
-                .contains("Cannot leave a 1:1 direct message room"));
+            assert!(
+                error
+                    .to_string()
+                    .contains("Cannot leave a 1:1 direct message room")
+            );
         }
         room_mock.assert_async().await;
     }
@@ -1578,8 +1594,7 @@ mod tests {
     #[test]
     fn test_message_out_builder_pattern() {
         // Test to_person_email builder
-        let msg = MessageOut::to_person_email("test@example.com")
-            .text("Hello, World!");
+        let msg = MessageOut::to_person_email("test@example.com").text("Hello, World!");
         assert_eq!(
             msg.destination,
             Some(Destination::ToPersonEmail("test@example.com".to_string()))
@@ -1587,8 +1602,7 @@ mod tests {
         assert_eq!(msg.text, Some("Hello, World!".to_string()));
 
         // Test to_person_id builder
-        let msg = MessageOut::to_person_id("person-id-123")
-            .markdown("**Bold** text");
+        let msg = MessageOut::to_person_id("person-id-123").markdown("**Bold** text");
         assert_eq!(
             msg.destination,
             Some(Destination::ToPersonId("person-id-123".to_string()))
@@ -1596,8 +1610,7 @@ mod tests {
         assert_eq!(msg.markdown, Some("**Bold** text".to_string()));
 
         // Test to_room builder
-        let msg = MessageOut::to_room("room-id-456")
-            .text("Room message");
+        let msg = MessageOut::to_room("room-id-456").text("Room message");
         assert_eq!(
             msg.destination,
             Some(Destination::RoomId("room-id-456".to_string()))

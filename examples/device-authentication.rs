@@ -1,5 +1,5 @@
 use std::env;
-use webex::{auth::DeviceAuthenticator, Webex};
+use webex::{Webex, auth::DeviceAuthenticator};
 
 const INTEGRATION_CLIENT_ID: &str = "INTEGRATION_CLIENT_ID";
 const INTEGRATION_CLIENT_SECRET: &str = "INTEGRATION_CLIENT_SECRET";

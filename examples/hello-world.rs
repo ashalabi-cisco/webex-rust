@@ -30,8 +30,8 @@ async fn main() {
 
     let webex = webex::Webex::new(token.as_str()).await;
 
-    let msg_to_send = webex::MessageOut::to_person_email(to_email.clone())
-        .text(format!("Hello, {to_email}"));
+    let msg_to_send =
+        webex::MessageOut::to_person_email(to_email.clone()).text(format!("Hello, {to_email}"));
 
     webex.send_message(&msg_to_send).await.unwrap();
 }

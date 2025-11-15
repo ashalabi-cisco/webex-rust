@@ -435,8 +435,17 @@ pub struct DeviceData {
 
 impl fmt::Display for DeviceData {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "name: {:?}, device_name: {:?}, device_type: {:?}, model: {:?}, system_name: {:?}, system_version: {:?}, url: {:?}",
-        self.name, self.device_name, self.device_type, self.model, self.system_name, self.system_version, self.url)
+        write!(
+            f,
+            "name: {:?}, device_name: {:?}, device_type: {:?}, model: {:?}, system_name: {:?}, system_version: {:?}, url: {:?}",
+            self.name,
+            self.device_name,
+            self.device_type,
+            self.model,
+            self.system_name,
+            self.system_version,
+            self.url
+        )
     }
 }
 
